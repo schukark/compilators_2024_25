@@ -1,0 +1,78 @@
+export function w $sieve(w %n, l %prime) {
+@start 
+    # if n > 0 => prime[0] = 0
+    %cond =w csgtw %n, 0
+    jnz %cond, @return0, @continue0
+@return0
+    storeb 0, %prime
+@continue0
+
+    # if n > 1 => prime[1] = 0
+    %cond =w csgtw %n, 1
+    jnz %cond, @return1, @continue1
+@return1
+    %temp1 =l add %prime, 1
+    storeb 0, %temp1
+@continue1
+
+    # int i = 2; char *addr = (char *) prime;
+    %i =w add 0, 2
+    %addr =l add %prime, 2
+@loop_init
+    # i < n => continue for loop
+    %cond =w csltw %i, %n
+    jnz %cond, @continue_loop_init, @break_loop
+
+@continue_loop_init
+    # *addr = 1
+    # addr += 1
+    # i += 1
+    storeb 1, %addr
+    %i =w add %i, 1
+    %addr =l add %addr, 1
+    jmp @loop_init
+@break_loop
+
+    # int i = 2
+    %i =w add 0, 2
+    # char *addr_i = (char *) prime;
+    %addr_i =l add %prime, 2
+
+@outer_loop
+    # i < n => continue outer loop
+    %cond =w csltw %i, %n
+    jnz %cond, @inner_loop_init, @break_outer_loop
+
+    @inner_loop_init
+        # int j = i * i;
+        %j =w mul %i, %i
+        # long long_i = (long) i;
+        %long_i =l extsw %i
+        # long long_j = (long) j;
+        %long_j =l extsw %j
+        # char *addr_j = (char *) long_j;
+        %addr_j =l add %prime, %long_j
+
+        @inner_loop
+            # j < n => continue inner loop
+            %cond =w csltw %j, %n
+            jnz %cond, @inner_loop_continue, @break_inner_loop
+        
+        @inner_loop_continue
+            # *addr_j = 0
+            storeb 0, %addr_j
+            # j += i
+            %j =w add %j, %i
+            # addr_j += long_i;
+            %addr_j =l add %addr_j, %long_i
+            jmp @inner_loop
+    @break_inner_loop
+        # i++
+        %i =w add %i, 1
+        # addr_i += 1
+        %addr_i =l add %addr_i, 1    
+        jmp @outer_loop
+@break_outer_loop
+
+    ret 0
+}
