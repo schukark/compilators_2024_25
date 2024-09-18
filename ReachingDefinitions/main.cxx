@@ -7,14 +7,14 @@ extern "C" {
 #include <unordered_map>
 #include <string>
 #include <iostream>
-#include <unordered_set>
+#include <set>
 #include <map>
 #include <set>
 #include <algorithm>
 
 
 static auto reaching_definitions(Blk* entry, const std::map<Blk*, std::set<Blk*> >& pred,
-    const std::map<Blk*, std::unordered_set<std::string>>& gen, const std::map<Blk*, std::unordered_set<std::string>>& kill) {
+    const std::map<Blk*, std::set<std::string>>& gen, const std::map<Blk*, std::set<std::string>>& kill) {
 
     std::map<Blk*, std::set<std::string>> in;
     for (Blk* blk = entry; blk; blk = blk->link) {
@@ -26,22 +26,30 @@ static auto reaching_definitions(Blk* entry, const std::map<Blk*, std::set<Blk*>
         change = false;
 
         for (Blk* blk = entry; blk; blk = blk->link) {
+            if (blk == entry) {
+                continue;
+            }
+
             std::set<std::string> in_new;
-            std::cout << blk->name << std::endl;
+
+            if (!pred.count(blk)) {
+                continue;
+            }
 
             for (const auto& pred_blk : pred.at(blk)) {
                 std::set<std::string> cur_result;
+
                 std::set_difference(in[pred_blk].begin(), in[pred_blk].end(),
                     kill.at(pred_blk).begin(), kill.at(pred_blk).end(),
-                    std::inserter(cur_result, std::next(cur_result.begin())));
+                    std::inserter(cur_result, cur_result.begin()));
 
                 std::set_union(gen.at(pred_blk).begin(), gen.at(pred_blk).end(),
-                    cur_result.begin(), cur_result.end(), std::inserter(cur_result,
-                        std::next(cur_result.begin())));
+                    cur_result.begin(), cur_result.end(),
+                    std::inserter(cur_result, cur_result.begin()));
 
                 std::set_union(cur_result.begin(), cur_result.end(),
                     in_new.begin(), in_new.end(),
-                    std::inserter(in_new, std::next(in_new.begin())));
+                    std::inserter(in_new, in_new.begin()));
             }
 
             if (in_new != in[blk]) {
@@ -54,7 +62,7 @@ static auto reaching_definitions(Blk* entry, const std::map<Blk*, std::set<Blk*>
     return in;
 }
 
-static Blk* prepare_for_entry(Blk* start) {
+static std::pair<Blk*, Blk*> prepare_for_entry(Blk* start) {
     Blk* Entry = new Blk();
     Entry->link = start;
     Entry->s1 = start;
@@ -66,12 +74,12 @@ static Blk* prepare_for_entry(Blk* start) {
     blk->link = Exit;
     blk->s1 = Exit;
 
-    return Entry;
+    return { Entry, blk };
 }
 
 static auto construct_gen_kill(Fn* fn) {
-    std::map<Blk*, std::unordered_set<std::string>> definition_per_block;
-    std::map<std::string, std::unordered_set<std::string>> all_variable_occurences;
+    std::map<Blk*, std::set<std::string>> definition_per_block;
+    std::map<std::string, std::set<std::string>> all_variable_occurences;
 
     for (Blk* blk = fn->start; blk; blk = blk->link) {
         for (int i = 0; i < blk->nins; i++) {
@@ -85,7 +93,7 @@ static auto construct_gen_kill(Fn* fn) {
         }
     }
 
-    std::map<Blk*, std::unordered_set<std::string>> gen, kill;
+    std::map<Blk*, std::set<std::string>> gen, kill;
 
     for (Blk* blk = fn->start; blk; blk = blk->link) {
         for (const auto& variable : definition_per_block[blk]) {
@@ -105,6 +113,16 @@ static auto construct_gen_kill(Fn* fn) {
         }
     }
 
+    for (Blk* blk = fn->start; blk; blk = blk->link) {
+        if (!gen.count(blk)) {
+            gen[blk] = std::set<std::string>();
+        }
+
+        if (!kill.count(blk)) {
+            kill[blk] = std::set<std::string>();
+        }
+    }
+
     return std::make_pair(gen, kill);
 }
 
@@ -119,26 +137,37 @@ static void fill_pred(Blk* entry, std::map<Blk*, std::set<Blk*>>& pred) {
     }
 }
 
-static void clean_up(Blk* entry) {
+static void clean_up(std::pair<Blk*, Blk*> entry) {
+    Blk* blk = entry.first;
+    delete entry.first;
+    auto tmp = entry.second->link;
+    entry.second->link = NULL;
+    delete tmp;
+}
+
+void fill_gen_kill_ends(Blk* entry, std::pair<std::map<Blk*, std::set<std::string>>,
+    std::map<Blk*, std::set<std::string>>>& gen_kill) {
+    gen_kill.first[entry] = std::set<std::string>();
+    gen_kill.second[entry] = std::set<std::string>();
+
     Blk* blk = entry;
     for (; blk && blk->link; blk = blk->link);
-    delete blk->link;
-    delete entry;
+
+    gen_kill.first[blk] = std::set<std::string>();
+    gen_kill.second[blk] = std::set<std::string>();
 }
 
 
 static void readfn(Fn* fn) {
     auto gen_kill = construct_gen_kill(fn);
-    Blk* entry = prepare_for_entry(fn->start);
+    auto entry = prepare_for_entry(fn->start);
+    fill_gen_kill_ends(entry.first, gen_kill);
 
     std::map<Blk*, std::set<Blk*>> pred;
-    fill_pred(entry, pred);
+    fill_pred(entry.first, pred);
 
-    auto in = reaching_definitions(entry, pred, gen_kill.first, gen_kill.second);
-    std::cout << "Constructed in" << std::endl;
-
+    auto in = reaching_definitions(entry.first, pred, gen_kill.first, gen_kill.second);
     clean_up(entry);
-    std::cout << "Cleaned up" << std::endl;
 
     for (Blk* blk = fn->start; blk; blk = blk->link) {
         std::cout << "@" << blk->name << std::endl;

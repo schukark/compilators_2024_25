@@ -1,0 +1,396 @@
+==257112== Memcheck, a memory error detector
+==257112== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==257112== Using Valgrind-3.18.1-42b08ed5bd-20211015 and LibVEX; rerun with -h for copyright info
+==257112== Command: ./main
+==257112== Parent PID: 257098
+==257112== 
+--257112-- 
+--257112-- Valgrind options:
+--257112--    --leak-check=full
+--257112--    --show-leak-kinds=all
+--257112--    --track-origins=yes
+--257112--    --verbose
+--257112--    --log-file=valgrind-out.txt
+--257112-- Contents of /proc/version:
+--257112--   Linux version 5.15.153.1-microsoft-standard-WSL2 (root@941d701f84f1) (gcc (GCC) 11.2.0, GNU ld (GNU Binutils) 2.37) #1 SMP Fri Mar 29 23:14:13 UTC 2024
+--257112-- 
+--257112-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand-rdseed
+--257112-- Page sizes: currently 4096, max supported 4096
+--257112-- Valgrind library directory: /usr/libexec/valgrind
+--257112-- Reading syms from /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main
+--257112-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+--257112--   Considering /usr/lib/debug/.build-id/41/86944c50f8a32b47d74931e3f512b811813b64.debug ..
+--257112--   .. build-id is valid
+--257112-- Reading syms from /usr/libexec/valgrind/memcheck-amd64-linux
+--257112--    object doesn't have a symbol table
+--257112--    object doesn't have a dynamic symbol table
+--257112-- Scheduler: using generic scheduler lock implementation.
+--257112-- Reading suppressions file: /usr/libexec/valgrind/default.supp
+==257112== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-257112-by-schuakrk-on-???
+==257112== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-257112-by-schuakrk-on-???
+==257112== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-257112-by-schuakrk-on-???
+==257112== 
+==257112== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==257112== don't want to do, unless you know exactly what you're doing,
+==257112== or are doing some strange experiment):
+==257112==   /usr/bin/vgdb --pid=257112 ...command...
+==257112== 
+==257112== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==257112==   /path/to/gdb ./main
+==257112== and then give GDB the following command
+==257112==   target remote | /usr/bin/vgdb --pid=257112
+==257112== --pid is optional if only one valgrind process is running
+==257112== 
+--257112-- REDIR: 0x402aa40 (ld-linux-x86-64.so.2:strlen) redirected to 0x580bcec2 (???)
+--257112-- REDIR: 0x402a810 (ld-linux-x86-64.so.2:index) redirected to 0x580bcedc (???)
+--257112-- Reading syms from /usr/libexec/valgrind/vgpreload_core-amd64-linux.so
+--257112--    object doesn't have a symbol table
+--257112-- Reading syms from /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so
+--257112--    object doesn't have a symbol table
+==257112== WARNING: new redirection conflicts with existing -- ignoring it
+--257112--     old: 0x0402aa40 (strlen              ) R-> (0000.0) 0x580bcec2 ???
+--257112--     new: 0x0402aa40 (strlen              ) R-> (2007.0) 0x0484ee30 strlen
+--257112-- REDIR: 0x4027220 (ld-linux-x86-64.so.2:strcmp) redirected to 0x484fcd0 (strcmp)
+--257112-- REDIR: 0x402afa0 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4853840 (mempcpy)
+--257112-- Reading syms from /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30
+--257112--    object doesn't have a symbol table
+--257112-- Reading syms from /usr/lib/x86_64-linux-gnu/libm.so.6
+--257112--   Considering /usr/lib/debug/.build-id/a5/08ec5d8bf12fb7fd08204e0f87518e5cd0b102.debug ..
+--257112--   .. build-id is valid
+--257112-- Reading syms from /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+--257112--    object doesn't have a symbol table
+--257112-- Reading syms from /usr/lib/x86_64-linux-gnu/libc.so.6
+--257112--   Considering /usr/lib/debug/.build-id/49/0fef8403240c91833978d494d39e537409b92e.debug ..
+--257112--   .. build-id is valid
+==257112== WARNING: new redirection conflicts with existing -- ignoring it
+--257112--     old: 0x04c42c60 (memalign            ) R-> (1011.0) 0x0484e080 memalign
+--257112--     new: 0x04c42c60 (memalign            ) R-> (1017.0) 0x0484e050 aligned_alloc
+==257112== WARNING: new redirection conflicts with existing -- ignoring it
+--257112--     old: 0x04c42c60 (memalign            ) R-> (1011.0) 0x0484e080 memalign
+--257112--     new: 0x04c42c60 (memalign            ) R-> (1017.0) 0x0484e020 aligned_alloc
+==257112== WARNING: new redirection conflicts with existing -- ignoring it
+--257112--     old: 0x04c42c60 (memalign            ) R-> (1011.0) 0x0484e080 memalign
+--257112--     new: 0x04c42c60 (memalign            ) R-> (1017.0) 0x0484e050 aligned_alloc
+==257112== WARNING: new redirection conflicts with existing -- ignoring it
+--257112--     old: 0x04c42c60 (memalign            ) R-> (1011.0) 0x0484e080 memalign
+--257112--     new: 0x04c42c60 (memalign            ) R-> (1017.0) 0x0484e020 aligned_alloc
+--257112-- REDIR: 0x4c45720 (libc.so.6:strnlen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c459e0 (libc.so.6:strpbrk) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c452e0 (libc.so.6:strcmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c63cd0 (libc.so.6:wcsnlen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c466d0 (libc.so.6:memset) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c62540 (libc.so.6:wcslen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c46c10 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c62370 (libc.so.6:wcschr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c45260 (libc.so.6:index) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c45960 (libc.so.6:rindex) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c465a0 (libc.so.6:memmove) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+==257112== Preferring higher priority redirection:
+--257112--     old: 0x04d3d7c0 (__memcpy_avx_unalign) R-> (2018.0) 0x04850f90 __memcpy_avx_unaligned_erms
+--257112--     new: 0x04d3d7c0 (__memcpy_avx_unalign) R-> (2018.1) 0x04852880 memmove
+--257112-- REDIR: 0x4c623f0 (libc.so.6:wcscmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c469e0 (libc.so.6:stpncpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c629b0 (libc.so.6:wmemchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c45830 (libc.so.6:strncmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c46a70 (libc.so.6:strcasecmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c45420 (libc.so.6:strcspn) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c62470 (libc.so.6:wcscpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c451d0 (libc.so.6:strcat) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c46b60 (libc.so.6:strncasecmp_l) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c46480 (libc.so.6:bcmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c4e570 (libc.so.6:memrchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c48010 (libc.so.6:strchrnul) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c45390 (libc.so.6:strcpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c46b10 (libc.so.6:strcasecmp_l) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c456a0 (libc.so.6:strlen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c458d0 (libc.so.6:strncpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c46950 (libc.so.6:stpcpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c463f0 (libc.so.6:memchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c45b00 (libc.so.6:strspn) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c467d0 (libc.so.6:mempcpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c46ac0 (libc.so.6:strncasecmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4c47f80 (libc.so.6:rawmemchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--257112-- REDIR: 0x4d3a610 (libc.so.6:__strrchr_avx2) redirected to 0x484e810 (rindex)
+--257112-- REDIR: 0x4c420a0 (libc.so.6:malloc) redirected to 0x4848820 (malloc)
+--257112-- REDIR: 0x4d3a7e0 (libc.so.6:__strlen_avx2) redirected to 0x484ed10 (strlen)
+--257112-- REDIR: 0x4d36a80 (libc.so.6:__memcmp_avx2_movbe) redirected to 0x4852010 (bcmp)
+--257112-- REDIR: 0x4c43520 (libc.so.6:calloc) redirected to 0x484d9d0 (calloc)
+--257112-- REDIR: 0x4d35940 (libc.so.6:__strcmp_avx2) redirected to 0x484fbd0 (strcmp)
+--257112-- REDIR: 0x4d3df80 (libc.so.6:__memset_avx2_unaligned_erms) redirected to 0x4852770 (memset)
+--257112-- REDIR: 0x4d3d7c0 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x4852880 (memmove)
+--257112-- REDIR: 0x4d3bcb0 (libc.so.6:__strcpy_avx2) redirected to 0x484ee60 (strcpy)
+--257112-- REDIR: 0x4918970 (libstdc++.so.6:operator new(unsigned long)) redirected to 0x4848fa0 (operator new(unsigned long))
+--257112-- REDIR: 0x4916c10 (libstdc++.so.6:operator delete(void*)) redirected to 0x484b840 (operator delete(void*))
+--257112-- REDIR: 0x4d3d780 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4853440 (mempcpy)
+==257112== 
+==257112== Process terminating with default action of signal 2 (SIGINT)
+==257112==    at 0x4CB17E2: read (read.c:26)
+==257112==    by 0x4C29C35: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:516)
+==257112==    by 0x4C2AD95: _IO_default_uflow (genops.c:362)
+==257112==    by 0x11B7BC: lex (parse.c:199)
+==257112==    by 0x11BC60: peek (parse.c:297)
+==257112==    by 0x11BC84: next (parse.c:306)
+==257112==    by 0x11BCAD: nextnl (parse.c:316)
+==257112==    by 0x11E569: parse (parse.c:1049)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== HEAP SUMMARY:
+==257112==     in use at exit: 107,187 bytes in 30 blocks
+==257112==   total heap usage: 128 allocs, 98 frees, 114,459 bytes allocated
+==257112== 
+==257112== Searching for pointers to 30 not-freed blocks
+==257112== Checked 21,296,712 bytes
+==257112== 
+==257112== 4 bytes in 1 blocks are possibly lost in loss record 1 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119F2D: intern (util.c:179)
+==257112==    by 0x11BFBC: parseref (parse.c:386)
+==257112==    by 0x11C2DA: parserefl (parse.c:447)
+==257112==    by 0x11CC57: parseline (parse.c:604)
+==257112==    by 0x11DA49: parsefn (parse.c:800)
+==257112==    by 0x11E5CC: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 7 bytes in 1 blocks are possibly lost in loss record 2 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119F2D: intern (util.c:179)
+==257112==    by 0x11BFBC: parseref (parse.c:386)
+==257112==    by 0x11CC47: parseline (parse.c:603)
+==257112==    by 0x11DA49: parsefn (parse.c:800)
+==257112==    by 0x11E5CC: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 8 bytes in 1 blocks are still reachable in loss record 3 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119B65: alloc (util.c:89)
+==257112==    by 0x11AB34: bsinit (util.c:407)
+==257112==    by 0x11D109: typecheck (parse.c:689)
+==257112==    by 0x11DB4C: parsefn (parse.c:814)
+==257112==    by 0x11E5CC: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 8 bytes in 1 blocks are still reachable in loss record 4 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119B65: alloc (util.c:89)
+==257112==    by 0x11AB34: bsinit (util.c:407)
+==257112==    by 0x11D11E: typecheck (parse.c:690)
+==257112==    by 0x11DB4C: parsefn (parse.c:814)
+==257112==    by 0x11E5CC: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 20 bytes in 1 blocks are still reachable in loss record 5 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119B65: alloc (util.c:89)
+==257112==    by 0x11A277: idup (util.c:248)
+==257112==    by 0x11C75E: closeblk (parse.c:504)
+==257112==    by 0x11C929: parseline (parse.c:541)
+==257112==    by 0x11DA49: parsefn (parse.c:800)
+==257112==    by 0x11E5CC: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 24 bytes in 2 blocks are still reachable in loss record 6 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119B65: alloc (util.c:89)
+==257112==    by 0x11F590: addpred (cfg.c:49)
+==257112==    by 0x11F6B9: fillpreds (cfg.c:73)
+==257112==    by 0x11D0F4: typecheck (parse.c:688)
+==257112==    by 0x11DB4C: parsefn (parse.c:814)
+==257112==    by 0x11E5CC: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 48 bytes in 1 blocks are possibly lost in loss record 7 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119C66: vnew (util.c:120)
+==257112==    by 0x119ED1: intern (util.c:175)
+==257112==    by 0x11BFBC: parseref (parse.c:386)
+==257112==    by 0x11CC47: parseline (parse.c:603)
+==257112==    by 0x11DA49: parsefn (parse.c:800)
+==257112==    by 0x11E5CC: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 48 bytes in 1 blocks are possibly lost in loss record 8 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119C66: vnew (util.c:120)
+==257112==    by 0x119ED1: intern (util.c:175)
+==257112==    by 0x11BFBC: parseref (parse.c:386)
+==257112==    by 0x11C2DA: parserefl (parse.c:447)
+==257112==    by 0x11CC57: parseline (parse.c:604)
+==257112==    by 0x11DA49: parsefn (parse.c:800)
+==257112==    by 0x11E5CC: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 80 bytes in 1 blocks are still reachable in loss record 9 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119B65: alloc (util.c:89)
+==257112==    by 0x119C66: vnew (util.c:120)
+==257112==    by 0x11D8E8: parsefn (parse.c:778)
+==257112==    by 0x11E5CC: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 100 bytes in 2 blocks are still reachable in loss record 10 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119B65: alloc (util.c:89)
+==257112==    by 0x11A277: idup (util.c:248)
+==257112==    by 0x11C75E: closeblk (parse.c:504)
+==257112==    by 0x11CBE0: parseline (parse.c:589)
+==257112==    by 0x11DA49: parsefn (parse.c:800)
+==257112==    by 0x11E5CC: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 112 bytes in 1 blocks are still reachable in loss record 11 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119B65: alloc (util.c:89)
+==257112==    by 0x11D877: parsefn (parse.c:774)
+==257112==    by 0x11E5CC: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 112 bytes in 1 blocks are still reachable in loss record 12 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119B65: alloc (util.c:89)
+==257112==    by 0x119C66: vnew (util.c:120)
+==257112==    by 0x11DAB1: parsefn (parse.c:806)
+==257112==    by 0x11E5CC: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 128 bytes in 1 blocks are still reachable in loss record 13 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119B65: alloc (util.c:89)
+==257112==    by 0x119C66: vnew (util.c:120)
+==257112==    by 0x119DAC: vgrow (util.c:151)
+==257112==    by 0x11C0B3: parseref (parse.c:393)
+==257112==    by 0x11CDDD: parseline (parse.c:633)
+==257112==    by 0x11DA49: parsefn (parse.c:800)
+==257112==    by 0x11E5CC: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 160 bytes in 1 blocks are possibly lost in loss record 14 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119C66: vnew (util.c:120)
+==257112==    by 0x11E551: parse (parse.c:1046)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 216 bytes in 1 blocks are still reachable in loss record 15 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119B65: alloc (util.c:89)
+==257112==    by 0x11F189: blknew (cfg.c:9)
+==257112==    by 0x11C686: findblk (parse.c:492)
+==257112==    by 0x11CB3D: parseline (parse.c:579)
+==257112==    by 0x11DA49: parsefn (parse.c:800)
+==257112==    by 0x11E5CC: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 224 bytes in 1 blocks are still reachable in loss record 16 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119B65: alloc (util.c:89)
+==257112==    by 0x119C66: vnew (util.c:120)
+==257112==    by 0x119DAC: vgrow (util.c:151)
+==257112==    by 0x11C0B3: parseref (parse.c:393)
+==257112==    by 0x11C2DA: parserefl (parse.c:447)
+==257112==    by 0x11CC57: parseline (parse.c:604)
+==257112==    by 0x11DA49: parsefn (parse.c:800)
+==257112==    by 0x11E5CC: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 272 bytes in 1 blocks are still reachable in loss record 17 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119B65: alloc (util.c:89)
+==257112==    by 0x119C66: vnew (util.c:120)
+==257112==    by 0x11D8BF: parsefn (parse.c:777)
+==257112==    by 0x11E5CC: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 432 bytes in 2 blocks are still reachable in loss record 18 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119B65: alloc (util.c:89)
+==257112==    by 0x11F189: blknew (cfg.c:9)
+==257112==    by 0x11C686: findblk (parse.c:492)
+==257112==    by 0x11C8FC: parseline (parse.c:539)
+==257112==    by 0x11DA49: parsefn (parse.c:800)
+==257112==    by 0x11E5CC: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 1,024 bytes in 1 blocks are still reachable in loss record 19 of 23
+==257112==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x4C1BBA3: _IO_file_doallocate (filedoalloc.c:101)
+==257112==    by 0x4C2ACDF: _IO_doallocbuf (genops.c:347)
+==257112==    by 0x4C29CDB: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:485)
+==257112==    by 0x4C2AD95: _IO_default_uflow (genops.c:362)
+==257112==    by 0x11B7BC: lex (parse.c:199)
+==257112==    by 0x11BC60: peek (parse.c:297)
+==257112==    by 0x11BC84: next (parse.c:306)
+==257112==    by 0x11BCAD: nextnl (parse.c:316)
+==257112==    by 0x11E569: parse (parse.c:1049)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 1,024 bytes in 1 blocks are still reachable in loss record 20 of 23
+==257112==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x4C1BBA3: _IO_file_doallocate (filedoalloc.c:101)
+==257112==    by 0x4C2ACDF: _IO_doallocbuf (genops.c:347)
+==257112==    by 0x4C29F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+==257112==    by 0x4C286D4: _IO_new_file_xsputn (fileops.c:1243)
+==257112==    by 0x4C286D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==257112==    by 0x4C1CFD6: fwrite (iofwrite.c:39)
+==257112==    by 0x49A6B64: std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==257112==    by 0x49A6EBA: std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==257112==    by 0x10D990: readfn(Fn*) (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112==    by 0x11E5D8: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 15,040 bytes in 5 blocks are still reachable in loss record 21 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119B65: alloc (util.c:89)
+==257112==    by 0x119C66: vnew (util.c:120)
+==257112==    by 0x119DAC: vgrow (util.c:151)
+==257112==    by 0x11A4FB: newtmp (util.c:332)
+==257112==    by 0x11D947: parsefn (parse.c:783)
+==257112==    by 0x11E5CC: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 15,392 bytes in 1 blocks are still reachable in loss record 22 of 23
+==257112==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x119AAD: emalloc (util.c:70)
+==257112==    by 0x119B65: alloc (util.c:89)
+==257112==    by 0x119C66: vnew (util.c:120)
+==257112==    by 0x119DAC: vgrow (util.c:151)
+==257112==    by 0x11A4FB: newtmp (util.c:332)
+==257112==    by 0x11BE86: tmpref (parse.c:355)
+==257112==    by 0x11C8B3: parseline (parse.c:592)
+==257112==    by 0x11DA49: parsefn (parse.c:800)
+==257112==    by 0x11E5CC: parse (parse.c:1057)
+==257112==    by 0x10D867: main (in /home/schuakrk/repos/compilators_2024_25/ReachingDefinitions/main)
+==257112== 
+==257112== 72,704 bytes in 1 blocks are still reachable in loss record 23 of 23
+==257112==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==257112==    by 0x4914939: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==257112==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==257112==    by 0x4006567: call_init (dl-init.c:33)
+==257112==    by 0x4006567: _dl_init (dl-init.c:117)
+==257112==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==257112== 
+==257112== LEAK SUMMARY:
+==257112==    definitely lost: 0 bytes in 0 blocks
+==257112==    indirectly lost: 0 bytes in 0 blocks
+==257112==      possibly lost: 267 bytes in 5 blocks
+==257112==    still reachable: 106,920 bytes in 25 blocks
+==257112==         suppressed: 0 bytes in 0 blocks
+==257112== 
+==257112== ERROR SUMMARY: 5 errors from 5 contexts (suppressed: 0 from 0)

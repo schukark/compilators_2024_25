@@ -3,3 +3,11 @@ compile:
 
 run: compile
 	./main
+
+valgrind: compile
+	valgrind --leak-check=full \
+        --show-leak-kinds=all \
+        --track-origins=yes \
+        --verbose \
+        --log-file=valgrind-out.txt \
+        ./main
