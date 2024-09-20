@@ -16,20 +16,19 @@ static void readfn(Fn* fn) {
 
     for (Blk* blk = fn->start; blk; blk = blk->link) {
         for (int i = 0; i < blk->nins; i++) {
-            if (Tmp0 > blk->ins[i].to.val) {
-                continue;
+            std::string arg1 = fn->tmp[blk->ins[i].arg[0].val].name;
+            std::string arg2 = fn->tmp[blk->ins[i].arg[1].val].name;
+
+            if (std::string{arg1} != "" && !def[std::string{blk->name}].count(arg1)) {
+                use[std::string{ blk->name }].insert(arg1);
+            }
+
+            if (std::string{arg2} != "" && !def[std::string{blk->name}].count(arg2)) {
+                use[std::string{ blk->name }].insert(arg2);
             }
 
             if (std::string{ fn->tmp[blk->ins[i].to.val].name } != "") {
                 def[std::string{ blk->name }].insert(fn->tmp[blk->ins[i].to.val].name);
-            }
-
-            if (std::string{ fn->tmp[blk->ins[i].arg[0].val].name } != "") {
-                use[std::string{ blk->name }].insert(fn->tmp[blk->ins[i].arg[0].val].name);
-            }
-
-            if (std::string{ fn->tmp[blk->ins[i].arg[1].val].name } != "") {
-                use[std::string{ blk->name }].insert(fn->tmp[blk->ins[i].arg[1].val].name);
             }
         }
     }
